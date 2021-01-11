@@ -53,10 +53,10 @@ for i_run = 1 : max_runs
         end
         %llr = 2/sigma^2 * y;
         %[info_esti_bp, ~, ~, ~] = BP_Decoder_LLR(info_bits, frozen_bits, llr, max_iter, M_up, M_down);
-        info_esti_bp = SC_decoder(q,llr, K, frozen_bits, lambda_offset, llr_layer_vec, bit_layer_vec);
+        info_esti_SC = SC_decoder(q,llr, K, frozen_bits, lambda_offset, llr_layer_vec, bit_layer_vec);
         if any(info_esti_bp ~= info)
-            num_block_err_bp(i_ebno) =  num_block_err_bp(i_ebno) + 1;
-            num_bit_err_bp(i_ebno) = num_bit_err_bp(i_ebno) + sum(info ~= info_esti_bp);
+            num_block_err_bp(i_ebno) =  num_block_err_SC(i_ebno) + 1;
+            num_bit_err_bp(i_ebno) = num_bit_err_bp(i_ebno) + sum(info ~= info_esti_SC);
         end
 
     end
