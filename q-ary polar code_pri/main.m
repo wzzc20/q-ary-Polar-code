@@ -2,7 +2,9 @@ clear;
 addpath('Decoding_Index/')
 addpath('GA/')
 addpath('chartsave/')
-n = 6;
+addpath('D:/iTsinghua/Major/github_syncs/Encoding/PolarCpp/PolarCpp/x64/Release');
+
+n = 8;
 q = 4;
 N = 2^n;
 K = 2^(n - 1);
@@ -27,13 +29,13 @@ prior6(info6) = 1;
 % 
 % [bler2, ber2] = Simulation_given_construction_for_main(max_iter, max_err, max_runs, resolution, find(sampleM(1,:)==1), ebno_vec, N, K,q,2);
 % 
-% [bler, ber] = Simulation(max_iter, max_err, max_runs, resolution, ebno_vec, N, K,q,2);
+[bler, ber] = Simulation(max_iter, max_err, max_runs, resolution, ebno_vec, N, K,q,2);
 
 %[bler1, ber1] = Simulation(max_iter, max_err, max_runs, resolution, ebno_vec, N, K,2,1);
 
-info_esti = info_chosen_by_GenieSC(max_iter, max_err, 10,400000, resolution, [1.5,3.5], N, K,q,2);
+%info_esti = info_chosen_by_GenieSC(max_iter, max_err, 10,400000, resolution, [1.5,3.5], N, K,q,2);
 
-[bler3, ber3] = Simulation_given_construction_for_main(max_iter, max_err, max_runs, resolution, info_esti, ebno_vec, N, K,q,2);
+%[bler3, ber3] = Simulation_given_construction_for_main(max_iter, max_err, max_runs, resolution, info_esti, ebno_vec, N, K,q,2);
 
 % info = combntns(1:N,K);
 % bler_t = zeros(length(bler),nchoosek(N,K));
