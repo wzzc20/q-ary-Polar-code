@@ -24,21 +24,26 @@ prior6 = zeros(1,64);
 prior6(info6) = 1;
 
 %[info,best_iter]=NQGA(32,16,2,1,3,100,100,1e3,1);
-sampleM = GeneticA(N, K,q, 1,3,1000,6000,0.03,0.01,2,0,0);
-% 
-[bler1, ber1] = Simulation_given_construction_for_main(max_iter, max_err, max_runs, resolution, find(sampleM(1,:)==1), ebno_vec, N, K,q,2);
+% sampleM = GeneticA(N, K,q, 1,3,1000,19000,0.03,0.01,2,0,0);
+% % 
+% [bler1, ber1] = Simulation_given_construction_for_main(max_iter, max_err, max_runs, resolution, find(sampleM(1,:)==1), ebno_vec, N, K,q,2);
 % 
 % sampleM = GeneticA(N, K,q, 1,3,1000,2000,0.03,0.01,2,1,prior6);
 % 
 % [bler2, ber2] = Simulation_given_construction_for_main(max_iter, max_err, max_runs, resolution, find(sampleM(1,:)==1), ebno_vec, N, K,q,2);
 % 
-[bler, ber] = Simulation(max_iter, max_err, max_runs, resolution, ebno_vec, N, K,q,2);
+%[bler, ber] = Simulation(max_iter, max_err, max_runs, resolution, ebno_vec, N, K,q,2);
+
+%[bler1, ber1] = Simulation_GenieSC(max_iter, max_err, max_runs, resolution, ebno_vec, N, K,q,2);
 
 %[bler, ber] = Simulation(max_iter, max_err, max_runs, resolution, ebno_vec, N, K,2,1);
 
-info_esti = info_chosen_by_GenieSC(max_iter, max_err, 1,7e6, 8, [1,3], N, K,q,2);
+info_esti = info_chosen_by_GenieSC(max_iter, max_err, 1,1e5, 8, [1,3], N, K,q,2);
 
 [bler3, ber3] = Simulation_given_construction_for_main(max_iter, max_err, max_runs, resolution, info_esti, ebno_vec, N, K,q,2);
+
+info_esti1 = info_chosen_by_GenieSC(max_iter, max_err, 1,1e5, 8, [1,3], N, N,q,2);
+[bler4, ber4] = Simulation_given_construction_for_main(max_iter, max_err, max_runs, resolution, info_esti, ebno_vec, N, K,q,2);
 
 % info = combntns(1:N,K);
 % bler_t = zeros(length(bler),nchoosek(N,K));

@@ -68,7 +68,7 @@ for i_run = 1 : max_runs
         
         pro = pro ./ sum(pro,2);
         pro = pro.';
-        info_esti_SC = Qary_SC_Decoder(pro, N, log2(q), frozen_bits.', alpha, decoder_config);
+        info_esti_SC = Qary_SC_Decoder(pro, N, log2(q), frozen_bits.', alpha, decoder_config,u);
         t = info_esti_SC.';
         info_esti_SC = endian_reverse(t,q);
         % info [3 1]' -> info_split [1 1 1 0]'  reversed by zja

@@ -26,6 +26,7 @@ bit_layer_vec = get_bit_layer(N);
 decoder_config.partially_frozen = false;
 decoder_config.is_qary = true;
 decoder_config.is_LLR = false;
+decoder_config.update_decoder = true;
 decoder_config.is_Genie = true;
 
 
@@ -38,6 +39,7 @@ parfor cpu_num = 1:num_of_CPUs
     %     end
         info_bits = randperm(N);
         info_bits = info_bits(1:K);
+        info_bits = sort(info_bits);
         frozen_bits = ones(N , 1);
         frozen_bits(info_bits) = 0;
 
@@ -73,7 +75,9 @@ parfor cpu_num = 1:num_of_CPUs
                 pro = pro.';
                 %llr = 2/sigma^2 * y;
                 %[info_esti_bp, ~, ~, ~] = BP_Decoder_LLR(info_bits, frozen_bits, llr, max_iter, M_up, M_down);
-                info_esti_SC = Qary_SC_Decoder(pro, N, log2(q), frozen_bits.', alpha, decoder_config,u);
+                temp_decoder_config = decoder_config;
+                temp_decoder_config.update_decoder = true;
+                info_esti_SC = Qary_SC_Decoder(pro, N, log2(q), frozen_bits.', alpha, temp_decoder_config,u);
                 t = info_esti_SC.';
                 info_esti_SC = endian_reverse(t,q);
                 % info [3 1]' -> info_split [1 1 1 0]'  reversed by zja
@@ -95,7 +99,13 @@ for num = 1:num_of_CPUs
     num_bit_err_bp_sum = num_bit_err_bp_sum+num_bit_err_bp{num};
 end
 ber = prod(num_bit_err_bp_sum);
+ber = ber(end:-1:1);
 [~,index] = sort(ber);
-info_esti = index(1:K);
+index = N+1-index;
+if(N==K)
+info_esti = index(1:K/2);
+else
+    info_esti = index(1:K);
+end
 info_esti = sort(info_esti);
 end
